@@ -5,7 +5,7 @@ import { useState } from "react";
 
 function App() {
   let post = "배고파";
-  let [글제목, b] = useState([
+  let [글제목, 음식변경] = useState([
     "바지락 칼국수 먹고 싶다",
     "대창 먹고 싶다",
     "초콜릿 먹고 싶다",
@@ -42,6 +42,15 @@ function App() {
       <div className="list">
         <h4>{글제목[2]}</h4>
         <p>2월 17일 발행</p>
+      </div>
+      <div
+        onClick={() => {
+          let copy = [...글제목];
+          copy[0] = "비빔밥 먹고 싶다";
+          음식변경(copy);
+        }}
+      >
+        먹고 싶은 음식 변경
       </div>
     </div>
   );
