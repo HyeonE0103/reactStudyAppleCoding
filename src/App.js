@@ -43,16 +43,29 @@ function App() {
         <h4>{글제목[2]}</h4>
         <p>2월 17일 발행</p>
       </div>
-      <div
-        onClick={() => {
-          let copy = [...글제목];
-          copy[0] = "비빔밥 먹고 싶다";
-          음식변경(copy);
-        }}
-      >
-        먹고 싶은 음식 변경
-      </div>
+      <Modal />
+      <He />
     </div>
   );
 }
+
+function Modal() {
+  return (
+    <div className="modal">
+      <h4>제목</h4>
+      <p>날짜</p>
+      <p>상세내용</p>
+    </div>
+  );
+}
+
+let He = () => {
+  return (
+    <div className="modal">
+      <h2>배고파</h2>
+      <h3>정말 배고파</h3>
+      <h4>정말 많이 배고파</h4>
+    </div>
+  );
+};
 export default App;
