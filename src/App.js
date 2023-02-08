@@ -12,6 +12,8 @@ function App() {
   ]);
   let [좋아요, 좋아요변경] = useState(0);
 
+  let [modal, setModal] = useState(false);
+
   function 함수() {}
 
   return (
@@ -20,7 +22,11 @@ function App() {
         <div>개발 blog</div>
       </div>
       <div className="list">
-        <h4>
+        <h4
+          onClick={() => {
+            modal == true ? setModal(false) : setModal(true);
+          }}
+        >
           {글제목[0]}{" "}
           <span
             onClick={() => {
@@ -43,8 +49,7 @@ function App() {
         <h4>{글제목[2]}</h4>
         <p>2월 17일 발행</p>
       </div>
-      <Modal />
-      <He />
+      {modal == true ? <Modal /> : null}
     </div>
   );
 }
@@ -58,14 +63,5 @@ function Modal() {
     </div>
   );
 }
-
-let He = () => {
-  return (
-    <div className="modal">
-      <h2>배고파</h2>
-      <h3>정말 배고파</h3>
-      <h4>정말 많이 배고파</h4>
-    </div>
-  );
-};
 export default App;
+//또는

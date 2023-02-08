@@ -18,9 +18,12 @@ let [a, b] = useState(자료, state변경을 도와주는 함수)
 
 state는 변동사항이 생기면 state쓰는 html도 자동으로 재렌더링해줌  
 그렇기에 state는자주 변할 것 같은 데이터들을 저장하는게 좋음  
+
 즉 자주변경될 것 같은 데이터들은 state에 저장했다가 html에 {데이터바인딩} 해놓고  
 변경할 일이 없는 데이터들과 굳이 html에 표기가 필요없는 데이터들은 변수에 저장  
+
 state를 변경하려면 state 변경함수를 꼭 이용(이용하지 않으면 재렌더링이 잃어나지 않음)  
+
 state변경함수는 () 안에 입력한걸로 기존 state를 변경해줌  
 array/object state를 변경하고 싶으면 독립적인 카피본을 만들어서 수정하는게 좋음
 
@@ -70,16 +73,85 @@ let 함수명 = () => {
 }
 ```
 
-#### Component 문법을 사용하려면
+### Component 문법을 사용하려면
 1. function을 이용해서 함수를 하나 만들어주고 작명
 2. 함수 안에 return () 안에 축약을 원하는 HTML을 담으면 됨
 3. 원하는 곳에서 <함수명></함수명> 사용
 4. 원하는 곳에 축약한 HTML 등장
 
-#### Component 만들때 주의점
+### Component 만들때 주의점
 - component 작명할 땐 영어대문자로 보통 작명
 - return () 안엔 html 태그들이 평행하게 여러개 들어갈 수 없음
 - function App(){} 내부에서 만들면 안됨
 - <컴포넌트></컴포넌트>라고 쓰거나 <컴포넌트/>로 사용
 
-Compont를 많이 만들면 관리가 힘들기 때문에 꼭 필요한 곳만 Component를 만들어야 함(사이트에 반복해서 나타나거나 내용이 자주 변경될 것 같은 부분 등)
+Compont를 많이 만들면 관리가 힘들기 때문에 꼭 필요한 곳만 Component를 만들어야 함  
+(사이트에 반복해서 나타나거나 내용이 자주 변경될 것 같은 부분 등)
+
+## 동적인 UI 모달창 만들기
+
+### 1.Html Css 미리 UI 디자인
+
+```js
+function 함수명(){
+  return ( <div></div> )
+}
+
+//또는
+
+let 함수명 = () => {
+  return ( <div></div>) 
+}
+```
+
+state를 하나 만들고 현재 UI의 상태정보를 저장
+
+### 2.UI의 현재 상태를 state로 저장
+
+```js
+let [modal, setModal] = useState(false);
+```
+
+### 3.state에 따라서 UI가 어떻게 보일지 조건문 등으로 작성
+
+```js
+function App (){
+
+  let [modal, setModal] = useState(false);
+  return (
+    <div className="app">
+      (생략)
+      {
+        modal == true ? <Modal></Modal> : null
+      }
+    </div>
+  )
+}
+```
+
+#### JSX에서 조건문 쓰는 법
+조건문은 if / else 문법을 쓰면 되는데 JSX 안에서는 if else 문법을 바로 사용할 수 없음  
+하지만 if 문법 대신 삼항연산자라는건 JSX 중괄호 안에서 사용가능 함  
+즉 if문 대신 사용할 수 있는 문법이 삼항연산자인 것
+
+```js
+조건식 ? 조건식 참일 때 실행할 코드 : 조건식 거짓일 때 실행할 코드
+```
+
+### 4.이벤트를 이용하여 모달창을 보이게 또는 안보이게 하기
+
+```js
+<div
+  onClick={() => {
+    modal == true ? setModal(false) : setModal(true);
+  }}
+>
+
+<div
+  onClick={() => {
+    setModal(!modal);
+  }}
+>
+```
+
+지정된 곳에 원하는 이벤트를 넣어 modal의 state를 변경
