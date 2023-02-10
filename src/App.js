@@ -30,7 +30,6 @@ function App() {
               }}
             >
               {글제목[i]}
-              {/* 글제목[0], 글제목[1] ...이 순서대로 들어감 */}
               <span
                 onClick={() => {
                   let copy = [...좋아요];
@@ -46,17 +45,29 @@ function App() {
           </div>
         );
       })}
-      {modal == true ? <Modal /> : null}
+      {modal == true ? (
+        <Modal 글제목={글제목} 음식변경={음식변경} color={"skyblue"} />
+      ) : null}
     </div>
   );
 }
 
-function Modal() {
+function Modal(props) {
   return (
-    <div className="modal">
-      <h4>제목</h4>
+    <div className="modal" style={{ background: props.color }}>
+      <h4>{props.글제목[0]}</h4>
       <p>날짜</p>
       <p>상세내용</p>
+      <div
+        className="button"
+        onClick={() => {
+          let c = [...props.글제목];
+          c[0] = "짜장면 먹고 싶다";
+          props.음식변경(c);
+        }}
+      >
+        변경
+      </div>
     </div>
   );
 }
