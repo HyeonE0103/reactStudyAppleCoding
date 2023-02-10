@@ -1,9 +1,11 @@
 .App {
   text-align: center;
 }
-.button-zon {
-  width: 100%;
-  display: flex;
+.button {
+  color: white;
+  background-color: black;
+  margin: auto;
+  width: 100px;
 }
 .modal {
   margin-top: 20px;
