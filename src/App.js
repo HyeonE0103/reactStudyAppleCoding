@@ -14,6 +14,8 @@ function App() {
 
   let [modal, setModal] = useState(false);
 
+  let [title, setTitle] = useState(0);
+
   function 함수() {}
 
   return (
@@ -26,6 +28,7 @@ function App() {
           <div className="list" key={i}>
             <h4
               onClick={() => {
+                setTitle(i);
                 modal == true ? setModal(false) : setModal(true);
               }}
             >
@@ -46,7 +49,12 @@ function App() {
         );
       })}
       {modal == true ? (
-        <Modal 글제목={글제목} 음식변경={음식변경} color={"skyblue"} />
+        <Modal
+          글제목={글제목}
+          음식변경={음식변경}
+          title={title}
+          color={"skyblue"}
+        />
       ) : null}
     </div>
   );
@@ -55,7 +63,7 @@ function App() {
 function Modal(props) {
   return (
     <div className="modal" style={{ background: props.color }}>
-      <h4>{props.글제목[0]}</h4>
+      <h4>{props.글제목[props.title]}</h4>
       <p>날짜</p>
       <p>상세내용</p>
       <div
