@@ -4,8 +4,9 @@
 .button {
   color: white;
   background-color: black;
-  margin: auto;
+  margin: 5px;
   width: 100px;
+  text-align: center;
 }
 .modal {
   margin-top: 20px;

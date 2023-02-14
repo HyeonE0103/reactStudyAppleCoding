@@ -4,7 +4,7 @@ import "./App.css";
 import { useState } from "react";
 
 function App() {
-  let [글제목, 음식변경] = useState([
+  let [글제목, 글제목변경] = useState([
     "바지락 칼국수 먹고 싶다",
     "대창 먹고 싶다",
     "초콜릿 먹고 싶다",
@@ -14,7 +14,9 @@ function App() {
 
   let [modal, setModal] = useState(false);
 
-  let [title, setTitle] = useState(0);
+  let [title, setTitle] = useState(0); //map돌릴때 글제목 하나씩 뽑아오기
+
+  let [입력값, 입력값변경] = useState("");
 
   function 함수() {}
 
@@ -34,7 +36,8 @@ function App() {
             >
               {글제목[i]}
               <span
-                onClick={() => {
+                onClick={(e) => {
+                  e.stopPropagation();
                   let copy = [...좋아요];
                   copy[i] = copy[i] + 1;
                   좋아요변경(copy);
@@ -45,17 +48,46 @@ function App() {
               {좋아요[i]}
             </h4>
             <p>2월 18일 발행</p>
+            <div
+              className="button"
+              onClick={() => {
+                let copy = [...글제목];
+                copy.splice(i, 1);
+                글제목변경(copy);
+              }}
+            >
+              삭제버튼
+            </div>
           </div>
         );
       })}
       {modal == true ? (
         <Modal
           글제목={글제목}
-          음식변경={음식변경}
+          글제목변경={글제목변경}
           title={title}
           color={"skyblue"}
         />
       ) : null}
+      <input
+        onChange={(e) => {
+          입력값변경(e.target.value);
+        }}
+      ></input>
+      <button
+        className="button"
+        onClick={() => {
+          let copy = [...글제목];
+          copy.push(입력값);
+          글제목변경(copy);
+
+          let numbers = [...좋아요];
+          numbers.push(0);
+          좋아요변경(numbers);
+        }}
+      >
+        추가버튼
+      </button>
     </div>
   );
 }
@@ -71,10 +103,10 @@ function Modal(props) {
         onClick={() => {
           let c = [...props.글제목];
           c[0] = "짜장면 먹고 싶다";
-          props.음식변경(c);
+          props.글제목변경(c);
         }}
       >
-        변경
+        변경버튼
       </div>
     </div>
   );
