@@ -18,6 +18,12 @@ function App() {
 
   let [입력값, 입력값변경] = useState("");
 
+  let [date, setDate] = useState([
+    "2020. 07. 07",
+    "2019. 05. 26",
+    "2018. 03. 01",
+  ]);
+
   function 함수() {}
 
   return (
@@ -31,7 +37,7 @@ function App() {
             <h4
               onClick={() => {
                 setTitle(i);
-                modal == true ? setModal(false) : setModal(true);
+                setModal(!modal);
               }}
             >
               {글제목[i]}
@@ -47,7 +53,7 @@ function App() {
               </span>
               {좋아요[i]}
             </h4>
-            <p>2월 18일 발행</p>
+            <p>{date[i]}</p>
             <div
               className="button"
               onClick={() => {
@@ -78,12 +84,24 @@ function App() {
         className="button"
         onClick={() => {
           let copy = [...글제목];
-          copy.push(입력값);
+          copy.unshift(입력값); // 최신글이 최상단으로
           글제목변경(copy);
 
           let numbers = [...좋아요];
-          numbers.push(0);
+          numbers.unshift(0);
           좋아요변경(numbers);
+
+          let dates = [...date];
+
+          const today = new Date();
+
+          const year = today.getFullYear();
+          const month = ("0" + (today.getMonth() + 1)).slice(-2);
+          const day = ("0" + today.getDate()).slice(-2);
+          const todayStr = year + ". " + month + ". " + day;
+
+          dates.unshift(todayStr);
+          setDate(dates);
         }}
       >
         추가버튼
@@ -101,9 +119,9 @@ function Modal(props) {
       <div
         className="button"
         onClick={() => {
-          let c = [...props.글제목];
-          c[0] = "짜장면 먹고 싶다";
-          props.글제목변경(c);
+          let copy = [...props.글제목];
+          copy[0] = "짜장면 먹고 싶다";
+          props.글제목변경(copy);
         }}
       >
         변경버튼
